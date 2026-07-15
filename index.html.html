@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فون زون - عالم الموبايلات والإكسسوارات</title>
+    <!-- Tailwind CSS للتنسيق السريع والعصري -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- خط Cairo المميز من Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- مكتبة الأيقونات Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- مكتبة التنبيهات الاحترافية SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* تخصيص شريط التمرير للسلة والصفحة */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between">
+
+    <!-- شريط التنقل العلوي -->
+    <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- الشعار -->
+            <div class="flex items-center gap-2 cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <span class="text-3xl">📱</span>
+                <span class="text-2xl font-black tracking-wider bg-gradient-to-l from-blue-400 to-blue-600 bg-clip-text text-transparent">فون زون</span>
+            </div>
+            
+            <!-- روابط التنقل السريع -->
+            <nav class="hidden md:flex gap-8 text-sm font-bold">
+                <a href="#mobiles" class="hover:text-blue-400 transition-colors duration-200">الهواتف الذكية</a>
+                <a href="#accessories" class="hover:text-blue-400 transition-colors duration-200">الإكسسوارات المميزة</a>
+            </nav>
+
+            <!-- أدوات التحكم والسلة والدخول للوحة التحكم -->
+            <div class="flex items-center gap-4">
+                <!-- زر السلة التفاعلي -->
+                <button onclick="toggleCart()" class="relative p-2.5 bg-slate-800 hover:bg-slate-700 rounded-xl transition-all duration-300 group">
+                    <i class="fa-solid fa-cart-shopping text-lg text-blue-400 group-hover:scale-110 transition-transform"></i>
+                    <span id="cart-count" class="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-extrabold shadow-md animate-bounce">0</span>
+                </button>
+                
+                <!-- زر الانتقال إلى لوحة تحكم الأدمن -->
+                <a href="admin.html" class="bg-gradient-to-l from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all duration-300 shadow-md shadow-blue-500/10">
+                    <i class="fa-solid fa-user-gear"></i>
+                    <span class="hidden sm:inline">لوحة التحكم</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- بنر العروض الترويجية والترحيبية -->
+    <section class="bg-slate-900 text-white py-24 px-4 text-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-3xl mx-auto relative z-10 space-y-6">
+            <span class="bg-blue-500/10 text-blue-400 text-xs font-bold px-4 py-1.5 rounded-full border border-blue-500/20 inline-block">أقوى العروض الحصرية لعام 2026 🔥</span>
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">أحدث الهواتف الذكية وإكسسواراتها الأصلية</h1>
+            <p class="text-base md:text-lg text-slate-300 font-light">بوابتك لامتلاك أرقى التقنيات العالمية والملحقات بضمان حقيقي وبأفضل الأسعار التنافسية المباشرة.</p>
+            <div class="flex justify-center gap-4 pt-4">
+                <a href="#mobiles" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl text-sm font-bold transition shadow-lg shadow-blue-500/20">تسوق الهواتف</a>
+                <a href="#accessories" class="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 rounded-xl text-sm font-bold transition border border-slate-700">تصفح الملحقات</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- حاوية المنتجات الرئيسية والتحكم الفوري -->
+    <main class="max-w-7xl w-full mx-auto px-4 py-12 flex-grow space-y-12">
+        
+        <!-- أدوات البحث والتصنيفات السريعة -->
+        <div class="flex flex-col md:flex-row gap-4 justify-between items-center bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
+            <!-- أزرار اختيار التصنيفات -->
+            <div class="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
+                <button onclick="filterCategory('all')" class="category-tab active px-5 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs sm:text-sm transition-all whitespace-nowrap">عرض الكل</button>
+                <button onclick="filterCategory('mobile')" class="category-tab px-5 py-2.5 rounded-xl bg-slate-50 border border-slate-100 text-slate-600 hover:bg-slate-100 font-bold text-xs sm:text-sm transition-all whitespace-nowrap">هواتف ذكية</button>
+                <button onclick="filterCategory('accessory')" class="category-tab px-5 py-2.5 rounded-xl bg-slate-50 border border-slate-100 text-slate-600 hover:bg-slate-100 font-bold text-xs sm:text-sm transition-all whitespace-nowrap">إكسسوارات وملحقات</button>
+            </div>
+            
+            <!-- حقل البحث المباشر -->
+            <div class="relative w-full md:w-80">
+                <input type="text" id="search-input" oninput="searchProducts()" placeholder="ابحث باسم المنتج..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-slate-400"></i>
+            </div>
+        </div>
+
+        <!-- قسم الهواتف الذكية -->
+        <section id="mobiles-section" class="space-y-6">
+            <h2 id="mobiles" class="text-2xl font-extrabold text-slate-800 flex items-center gap-2 border-r-4 border-blue-600 pr-3">
+                <i class="fa-solid fa-mobile-screen-button text-blue-600"></i> أحدث الهواتف المعروضة
+            </h2>
+            <div id="mobiles-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div class="col-span-full text-center py-12 text-slate-400">
+                    <i class="fa-solid fa-spinner animate-spin text-3xl text-blue-500 mb-3 block"></i>
+                    <span>جاري تحميل الهواتف المتوفرة...</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم الإكسسوارات والمحلقات -->
+        <section id="accessories-section" class="space-y-6">
+            <h2 id="accessories" class="text-2xl font-extrabold text-slate-800 flex items-center gap-2 border-r-4 border-blue-600 pr-3">
+                <i class="fa-solid fa-plug text-blue-600"></i> إكسسوارات وملحقات مميزة
+            </h2>
+            <div id="accessories-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div class="col-span-full text-center py-12 text-slate-400">
+                    <i class="fa-solid fa-spinner animate-spin text-3xl text-blue-500 mb-3 block"></i>
+                    <span>جاري تحميل قائمة الإكسسوارات...</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- السلة الجانبية المنزلقة -->
+    <div id="cart-drawer" class="fixed inset-y-0 left-0 max-w-md w-full bg-white shadow-2xl z-[100] transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between border-r border-slate-100">
+        <div class="h-full flex flex-col justify-between">
+            <!-- ترويسة السلة الجانبية -->
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-slate-900 text-white">
+                <h3 class="text-lg font-bold flex items-center gap-2"><i class="fa-solid fa-cart-shopping text-blue-400"></i> سلة مشترياتك</h3>
+                <button onclick="toggleCart()" class="text-slate-400 hover:text-white text-xl transition"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- محتويات السلة والمنتجات المضافة -->
+            <div id="cart-items" class="p-6 overflow-y-auto flex-grow space-y-4">
+                <div class="text-center py-12 text-slate-400">السلة فارغة حالياً. ابدأ بإضافة المنتجات المفضلة!</div>
+            </div>
+
+            <!-- معلومات الفاتورة وتأكيد الشراء السريع -->
+            <div class="p-6 bg-slate-50 border-t border-slate-100 space-y-4 shadow-inner">
+                <div class="flex justify-between items-center text-lg font-extrabold">
+                    <span class="text-slate-600">إجمالي الحساب:</span>
+                    <span id="cart-total" class="text-red-500">0 ج.م</span>
+                </div>
+                
+                <!-- نموذج تعبئة بيانات التوصيل للعميل -->
+                <div id="checkout-form" class="space-y-3 pt-2 border-t border-slate-200">
+                    <h4 class="text-xs font-extrabold text-slate-400 uppercase tracking-wider">معلومات تأكيد التوصيل السريع</h4>
+                    <input type="text" id="cust-name" placeholder="اسمك بالكامل *" class="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition">
+                    <input type="tel" id="cust-phone" placeholder="رقم الهاتف للتواصل للتأكيد *" class="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition">
+                    <input type="text" id="cust-address" placeholder="عنوان التوصيل بالتفصيل *" class="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition">
+                </div>
+
+                <!-- زر الإرسال المباشر -->
+                <button onclick="submitOrder()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3.5 rounded-xl font-bold transition flex justify-center items-center gap-2 shadow-lg shadow-blue-500/20 text-sm sm:text-base">
+                    إرسال طلب الشراء فوراً <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- خلفية السلة الشفافة الداكنة -->
+    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/50 z-[90] hidden transition-opacity duration-300"></div>
+
+    <!-- تذييل الصفحة -->
+    <footer class="bg-slate-950 text-slate-400 py-10 text-center border-t border-slate-900 text-sm">
+        <div class="max-w-7xl mx-auto px-4 space-y-4">
+            <div class="flex justify-center items-center gap-2">
+                <span class="text-xl">📱</span>
+                <span class="font-bold text-white text-base">فون زون</span>
+            </div>
+            <p>جميع الحقوق محفوظة &copy; 2026 | فون زون للتقنية وهندسة الهواتف الذكية</p>
+        </div>
+    </footer>
+
+    <!-- إدراج مكتبات Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
+        // إعدادات الـ Firebase الخاصة بمشروع "mopeil"
+        const firebaseConfig = {
+            apiKey: "AIzaSyBPL5fB0smHuUgyKhInquwwm7vAwr_4CSY",
+            authDomain: "mopeil.firebaseapp.com",
+            projectId: "mopeil",
+            storageBucket: "mopeil.firebasestorage.app",
+            messagingSenderId: "563559847773",
+            appId: "1:563559847773:android:aa6d00f47514cf673bbab4",
+            databaseURL: "https://mopeil-default-rtdb.firebaseio.com"
+        };
+
+        // تهيئة Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // متغيرات التخزين المؤقت للمزامنة والسلة والبحث
+        let allProducts = [];
+        let currentFilter = 'all';
+        let searchQuery = '';
+        let shoppingCart = [];
+
+        // عناصر واجهة المستخدم
+        const mobilesContainer = document.getElementById('mobiles-container');
+        const accessoriesContainer = document.getElementById('accessories-container');
+
+        // جلب ومزامنة المنتجات المنشورة مباشرة
+        function syncProducts() {
+            const productsRef = ref(database, 'products');
+            onValue(productsRef, (snapshot) => {
+                const data = snapshot.val();
+                allProducts = [];
+                
+                if (data) {
+                    Object.keys(data).forEach(key => {
+                        allProducts.push({
+                            id: key,
+                            ...data[key]
+                        });
+                    });
+                }
+                
+                renderStorefront();
+            }, (error) => {
+                console.error("عطل أثناء مزامنة البيانات: ", error);
+            });
+        }
+
+        // معالجة ورسم المنتجات في المعرض
+        function renderStorefront() {
+            mobilesContainer.innerHTML = '';
+            accessoriesContainer.innerHTML = '';
+
+            const filtered = allProducts.filter(product => {
+                const matchesCategory = currentFilter === 'all' || product.category === currentFilter;
+                const matchesSearch = product.title.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            let mobileCount = 0;
+            let accessoryCount = 0;
+
+            filtered.forEach(product => {
+                const cardHTML = `
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md border border-slate-100 transition duration-300 flex flex-col justify-between h-full">
+                        <div class="relative bg-slate-50 h-52 flex items-center justify-center overflow-hidden">
+                            <img src="${product.image || 'https://images.unsplash.com/photo-1546054454-aa26e2b734c7?w=300'}" alt="${product.title}" class="object-contain w-full h-full max-h-40 p-2 transition-transform duration-300 hover:scale-105" onerror="this.src='https://placehold.co/300x200/edf2f7/4a5568?text=No+Image'">
+                            <span class="absolute top-2 right-2 bg-slate-900/80 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full backdrop-blur-sm">
+                                ${product.category === 'mobile' ? 'هاتف ذكي' : 'إكسسوار'}
+                            </span>
+                        </div>
+                        <div class="p-5 flex-grow flex flex-col justify-between">
+                            <h3 class="font-bold text-slate-800 text-sm sm:text-base mb-2 line-clamp-2 min-h-[3rem]">${product.title}</h3>
+                            <div>
+                                <div class="text-xl font-extrabold text-red-500 mb-4">${parseFloat(product.price).toLocaleString('ar-EG')} ج.م</div>
+                                <button onclick="addToCart('${product.id}')" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl font-bold transition flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-cart-plus"></i> أضف للسلة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                if (product.category === 'mobile') {
+                    mobilesContainer.insertAdjacentHTML('beforeend', cardHTML);
+                    mobileCount++;
+                } else {
+                    accessoriesContainer.insertAdjacentHTML('beforeend', cardHTML);
+                    accessoryCount++;
+                }
+            });
+
+            // إظهار وإخفاء الأقسام حسب الفلاتر النشطة
+            const mobileSec = document.getElementById('mobiles-section');
+            const accessorySec = document.getElementById('accessories-section');
+
+            if (currentFilter === 'mobile') {
+                mobileSec.style.display = 'block';
+                accessorySec.style.display = 'none';
+            } else if (currentFilter === 'accessory') {
+                mobileSec.style.display = 'none';
+                accessorySec.style.display = 'block';
+            } else {
+                mobileSec.style.display = 'block';
+                accessorySec.style.display = 'block';
+            }
+
+            if (mobileCount === 0 && (currentFilter === 'all' || currentFilter === 'mobile')) {
+                mobilesContainer.innerHTML = '<div class="col-span-full text-center py-12 text-slate-400"><i class="fa-solid fa-box-open text-2xl mb-2 block"></i> لا توجد هواتف معروضة تطابق معايير البحث.</div>';
+            }
+            if (accessoryCount === 0 && (currentFilter === 'all' || currentFilter === 'accessory')) {
+                accessoriesContainer.innerHTML = '<div class="col-span-full text-center py-12 text-slate-400"><i class="fa-solid fa-box-open text-2xl mb-2 block"></i> لا توجد إكسسوارات معروضة تطابق معايير البحث.</div>';
+            }
+        }
+
+        // إضافة منتج للسلة
+        window.addToCart = function(id) {
+            const product = allProducts.find(p => p.id === id);
+            if (!product) return;
+
+            const existing = shoppingCart.find(item => item.id === id);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                shoppingCart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartUI();
+            
+            // ومضة خفيفة للزر لإشعار المستخدم بالنجاح
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: `تمت إضافة ${product.title} للسلة`,
+                showConfirmButton: false,
+                timer: 1500
+            });
+        };
+
+        // حذف من السلة
+        window.removeFromCart = function(id) {
+            shoppingCart = shoppingCart.filter(item => item.id !== id);
+            updateCartUI();
+        };
+
+        // تعديل كمية منتج في السلة
+        window.changeCartQuantity = function(id, delta) {
+            const item = shoppingCart.find(i => i.id === id);
+            if (!item) return;
+
+            item.quantity += delta;
+            if (item.quantity <= 0) {
+                removeFromCart(id);
+            } else {
+                updateCartUI();
+            }
+        };
+
+        // تحديث واجهة السلة (UI)
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+
+            cartItemsContainer.innerHTML = '';
+            
+            let total = 0;
+            let count = 0;
+
+            if (shoppingCart.length === 0) {
+                cartItemsContainer.innerHTML = '<div class="text-center py-12 text-slate-400">السلة فارغة حالياً. ابدأ بإضافة المنتجات المفضلة!</div>';
+            } else {
+                shoppingCart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    count += item.quantity;
+
+                    const itemHTML = `
+                        <div class="flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-100">
+                            <div class="flex items-center gap-3">
+                                <img src="${item.image}" alt="" class="w-12 h-12 object-contain bg-white rounded-lg border border-slate-100 p-0.5" onerror="this.src='https://placehold.co/100x100/edf2f7/4a5568?text=No+Image'">
+                                <div>
+                                    <h4 class="font-bold text-slate-800 text-xs line-clamp-1">${item.title}</h4>
+                                    <span class="text-xs text-red-500 font-bold">${item.price.toLocaleString('ar-EG')} ج.م</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="changeCartQuantity('${item.id}', -1)" class="w-6 h-6 rounded bg-slate-200 text-slate-700 font-bold hover:bg-slate-300 transition flex items-center justify-center text-xs">-</button>
+                                <span class="text-xs font-bold">${item.quantity}</span>
+                                <button onclick="changeCartQuantity('${item.id}', 1)" class="w-6 h-6 rounded bg-slate-200 text-slate-700 font-bold hover:bg-slate-300 transition flex items-center justify-center text-xs">+</button>
+                                <button onclick="removeFromCart('${item.id}')" class="text-red-500 hover:text-red-700 mr-2 text-sm"><i class="fa-solid fa-trash-can"></i></button>
+                            </div>
+                        </div>
+                    `;
+                    cartItemsContainer.insertAdjacentHTML('beforeend', itemHTML);
+                });
+            }
+
+            cartCount.innerText = count;
+            cartTotal.innerText = `${total.toLocaleString('ar-EG')} ج.م`;
+        }
+
+        // إرسال طلب شراء جديد إلى قاعدة البيانات
+        window.submitOrder = function() {
+            if (shoppingCart.length === 0) {
+                Swal.fire('سلتك فارغة', 'يرجى إضافة المنتجات إلى السلة قبل تأكيد الطلب.', 'info');
+                return;
+            }
+
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const address = document.getElementById('cust-address').value.trim();
+
+            if (!name || !phone || !address) {
+                Swal.fire('حقول مطلوبة', 'يرجى ملء جميع حقول التوصيل بدقة لضمان معالجة وتوصيل طلبك.', 'warning');
+                return;
+            }
+
+            const ordersRef = ref(database, 'orders');
+            const newOrderRef = push(ordersRef);
+
+            let total = 0;
+            const items = shoppingCart.map(item => {
+                total += item.price * item.quantity;
+                return {
+                    id: item.id,
+                    title: item.title,
+                    price: item.price,
+                    quantity: item.quantity
+                };
+            });
+
+            set(newOrderRef, {
+                customerName: name,
+                customerPhone: phone,
+                customerAddress: address,
+                items: items,
+                total: total,
+                timestamp: Date.now()
+            }).then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'تم إرسال طلبك بنجاح!',
+                    text: 'تلقينا طلبك وسيقوم فريق المبيعات والاتصال الهاتفي بالتأكيد معك قريباً لشحن طلبيتك.',
+                    confirmButtonText: 'ممتاز'
+                });
+                // تفريغ السلة والنموذج بعد النجاح
+                shoppingCart = [];
+                updateCartUI();
+                document.getElementById('cust-name').value = '';
+                document.getElementById('cust-phone').value = '';
+                document.getElementById('cust-address').value = '';
+                toggleCart();
+            }).catch(err => {
+                Swal.fire('فشل إرسال الطلب', 'عذراً، حدث عطل غير متوقع: ' + err.message, 'error');
+            });
+        };
+
+        // تفعيل الفلاتر والبحث
+        window.filterCategory = function(cat) {
+            currentFilter = cat;
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('bg-blue-600', 'text-white', 'active');
+                tab.classList.add('bg-slate-50', 'border', 'border-slate-100', 'text-slate-600');
+            });
+            event.target.classList.remove('bg-slate-50', 'border', 'border-slate-100', 'text-slate-600');
+            event.target.classList.add('bg-blue-600', 'text-white', 'active');
+            renderStorefront();
+        };
+
+        window.searchProducts = function() {
+            searchQuery = document.getElementById('search-input').value.trim();
+            renderStorefront();
+        };
+
+        // تشغيل المزامنة عند الإقلاع
+        syncProducts();
+    </script>
+
+    <script>
+        // إظهار وإخفاء السلة الجانبية بسلاسة
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            const overlay = document.getElementById('cart-overlay');
+            drawer.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
